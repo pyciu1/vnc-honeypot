@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  vnc-honeypot:
+    build: .
+    container_name: vnc-honeypot
+    restart: unless-stopped
+    network_mode: host   # necesar pentru a vedea IP-ul real al atacatorului
+
+    volumes:
+      - /data/vnc:/data
+      # Opțional: GeoLite2 DB
+      # - /data/geoip/GeoLite2-City.mmdb:/data/GeoLite2-City.mmdb:ro
+
+    environment:
+      - VNC_GEOIP_DB=${VNC_GEOIP_DB:-}
+
+    command:
+      - "--db=/data/vnc_honeypot.db"
+      - "--ports=5900-5910"
+      - "--http-port=5800"
+      - "--telegram-token=${VNC_TELEGRAM_TOKEN:-}"
+      - "--telegram-chat-id=${VNC_TELEGRAM_CHAT_ID:-}"
+      - "--geoip-db=${VNC_GEOIP_DB:-}"
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"

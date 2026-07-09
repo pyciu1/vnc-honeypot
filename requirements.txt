@@ -1,0 +1,14 @@
+# VNC Honeypot — Python Dependencies
+# Toate sunt OPȚIONALE — honeypot-ul funcționează cu stdlib Python 3.10+
+
+# GeoIP lookup (opțional — fără el folosește tabel static)
+# Necesită și GeoLite2-City.mmdb de la MaxMind (gratuit)
+geoip2>=4.7.0
+
+# Alerting (shared cu RDP honeypot)
+# Necesare doar dacă folosești --telegram-token sau --smtp-host
+# (copiate din rdp-honeypot-v54 dacă rulezi ambele pe același VPS)
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
